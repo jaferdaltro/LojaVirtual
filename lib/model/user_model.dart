@@ -12,11 +12,15 @@ class UserModel extends Model {
 
   bool isLoading = false;
 
+  static UserModel of(BuildContext context) =>
+      ScopedModel.of<UserModel>(context);
+
 
   @override
   void addListener(VoidCallback listener) {
     super.addListener(listener);
      _loadCurrentUser();
+
   }
 
   void signUp({@required Map<String, dynamic> userData,@required String pass,
@@ -70,8 +74,8 @@ class UserModel extends Model {
     return firebaseUser != null;
   }
 
-  void recoverPass() {
-
+  void recoverPass(String email) {
+      _auth.sendPasswordResetEmail(email: email);
   }
 
   Future<Null> _saveUserData(Map<String, dynamic> userData)async{

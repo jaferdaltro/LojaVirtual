@@ -1,6 +1,8 @@
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter/material.dart';
 import 'package:loja_virtual/datas/product_data.dart';
+import 'package:loja_virtual/model/user_model.dart';
+import 'package:loja_virtual/screens/login_screen.dart';
 
 class ProductScreen extends StatefulWidget {
   final ProductData data;
@@ -110,22 +112,32 @@ class _ProductScreenState extends State<ProductScreen> {
                   SizedBox(
                     height: 44.0,
                     child: RaisedButton(
-                      onPressed: size != null ? () {} : null,
+                      onPressed: size != null
+                          ? () {
+                              if (UserModel.of(context).isLoggedIn()) {
+                              } else {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => LoginScreen()));
+                              }
+                            }
+                          : null,
                       color: primaryColor,
                       child: Text(
-                        "Adicionar ao Carrinho",
-                        style: TextStyle(color: Colors.white,fontSize: 18.0),
+                        UserModel.of(context).isLoggedIn()?"Adicionar ao Carrinho"
+                        :"Faça o login para comprar",
+                        style: TextStyle(color: Colors.white, fontSize: 18.0),
                       ),
                     ),
                   ),
                   SizedBox(height: 16.0),
-                  Text("Descrição:",style:
-                  TextStyle(fontSize: 16.0, fontWeight: FontWeight.w500), ),
+                  Text(
+                    "Descrição:",
+                    style:
+                        TextStyle(fontSize: 16.0, fontWeight: FontWeight.w500),
+                  ),
                   Text(
                     data.description,
-                    style: TextStyle(
-                      fontSize: 16.0
-                    ),
+                    style: TextStyle(fontSize: 16.0),
                   )
                 ],
               ),
