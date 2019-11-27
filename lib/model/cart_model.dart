@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:loja_virtual/datas/cart_product.dart';
 import 'package:loja_virtual/model/user_model.dart';
 import 'package:scoped_model/scoped_model.dart';
@@ -9,7 +10,8 @@ class CartModel extends Model{
 
   List<CartProduct> products = [];
 
-
+  static CartModel of(BuildContext context) =>
+    ScopedModel.of<CartModel>(context);
   CartModel(this.user);
 
   addCartItem(CartProduct product){
